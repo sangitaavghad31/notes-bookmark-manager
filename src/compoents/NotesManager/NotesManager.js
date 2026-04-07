@@ -8,10 +8,14 @@ const NotesManager = (props) =>{
     const [date, setDate] = useState("");
     const [noteList, setNoteList]=useState([]);
     useEffect(() => {
-        const storedList = JSON.parse(localStorage.getItem("list"));
+        const storedList = JSON.parse(localStorage.getItem("noteList"));
         if (storedList) {
         setNoteList(storedList);
         }
+
+         return () => {
+    localStorage.removeItem("noteList");
+  };
     }, []);
 
     function noteHandler(event) {
@@ -30,7 +34,7 @@ const NotesManager = (props) =>{
 
         setNoteList(updatedList);
 
-        localStorage.setItem("list", JSON.stringify(updatedList));
+        localStorage.setItem("noteList", JSON.stringify(updatedList));
 
         setNoteName("");
         setNoteDescription("");
@@ -49,28 +53,44 @@ const NotesManager = (props) =>{
         setDate(event.target.value);
     }
     const clearListHandler = (event) =>{
-        localStorage.removeItem("list");
+        localStorage.removeItem("noteList");
         setNoteList([]);
     }
     return (
         <>
         <div>
             <form className="form-box"onSubmit={noteHandler}>
-                <h1>Add book Mark</h1>
-                <input type="text" id="noteName" onChange={noteNameHandler} value={noteName}/>
-                <input type="text" id="noteDescription" onChange={noteDescriptionHandler} value={noteDescription}/>
-                <input type="date" id="date" onChange={dateHandler} value={date}/>
-                <button type="submit">Add Book Mark</button>
+                <h1>Add Note</h1>
+                <input 
+                    type="text" 
+                    id="noteName" 
+                    onChange={noteNameHandler} 
+                    value={noteName}
+                    placeholder='Add Name here'
+                    />
+                <input 
+                    type="text" 
+                    id="noteDescription" 
+                    onChange={noteDescriptionHandler} 
+                    value={noteDescription}
+                    placeholder='Add Description here'
+                    />
+                <input 
+                    type="date" 
+                    id="date" 
+                    onChange={dateHandler} 
+                    value={date}/>
+                <button type="submit">Add Note</button>
                 <button type="button" onClick={clearListHandler}>Clear List</button>
             </form>
-            {noteList?.map((bookmark)=>{
-                const date = new Date(bookmark.date);
+            {noteList?.map((note)=>{
+                const date = new Date(note.date);
                 const d = date.getDate();
                 const month = date.getMonth()+1;
                 const year = date.getFullYear();
-                return (<NotesItem key={bookmark.id} 
-                    name={bookmark.name}
-                description={bookmark.url}
+                return (<NotesItem key={note.id} 
+                    name={note.noteName}
+                description={note.noteDescription}
                 date={`${d}-${month}-${year}`}
                 />)
             })}

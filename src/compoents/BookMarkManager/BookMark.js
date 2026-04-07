@@ -11,6 +11,9 @@ const BookMark = (props) =>{
         if (storedList) {
         setBookMarkList(storedList);
         }
+         return () => {
+    localStorage.removeItem("list");
+  };
     }, []);
 
     function bookMarkHandler(event) {
@@ -49,8 +52,18 @@ const BookMark = (props) =>{
         <div>
             <form className="form-box"onSubmit={bookMarkHandler}>
                 <h1>Add book Mark</h1>
-                <input type="text" id="bookmarkname" onChange={bookmarkNameHandler} value={bookmarkName}/>
-                <input type="text" id="bookmarkurl" onChange={bookmarkUrlHandler} value={bookmarkUrl}/>
+                <input type="text" 
+                    id="bookmarkname" 
+                    onChange={bookmarkNameHandler} 
+                    value={bookmarkName}
+                    placeholder='Name the BookMark'
+                    />
+                <input 
+                    type="text" 
+                    id="bookmarkurl" 
+                    onChange={bookmarkUrlHandler} 
+                    value={bookmarkUrl}
+                    placeholder='Add Url'/>
                 <button type="submit">Add Book Mark</button>
                 <button type="button" onClick={clearListHandler}>Clear List</button>
             </form>

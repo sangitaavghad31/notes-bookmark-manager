@@ -2,7 +2,7 @@ import React from 'react';
 import "./NoteItem.css";
 
 const NoteItem = (props) => {
-
+    console.log(props);
   return (
     <div className='item-container' key={props.id}>
       <h3>Name:{props.name}</h3>    
