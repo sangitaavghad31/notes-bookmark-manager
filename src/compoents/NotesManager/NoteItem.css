@@ -1,0 +1,17 @@
+.item-container{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    background: linear-gradient(to bottom, #4facfe, #00f2fe);
+}
+
+button{
+    color: cadetblue;
+    background-color: blanchedalmond;
+    border: 1px solid cadetblue;
+    border-radius: 5px;
+}
